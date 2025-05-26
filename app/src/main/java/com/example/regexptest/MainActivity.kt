@@ -9,13 +9,20 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import com.example.regexptest.calendar.di.SetUpCalendarSdk
 import com.example.regexptest.databinding.ActivityMainBinding
-import dagger.hilt.EntryPoints
+import com.example.regexptest.notes.di.SetUpNotesSdk
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var setUpNotesSdk: SetUpNotesSdk
+
+    @Inject
+    lateinit var setUpCalendarSdk: SetUpCalendarSdk
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -37,7 +44,8 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 
-
+        setUpNotesSdk.init()
+        setUpCalendarSdk.init()
     }
 
 

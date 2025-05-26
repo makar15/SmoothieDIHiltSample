@@ -1,17 +1,23 @@
 package com.example.regexptest.smoothie.di.singleton
 
-import com.example.regexptest.smoothie.data.SmoothieRepository
+import com.example.regexptest.smoothie.data.Retrofit
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(SmoothieSingletonComponent::class)
+@InstallIn(SingletonComponent::class)
 class SingletonModule {
 
     @Provides
-    @SmoothieSingleton
-    fun provideRepository(appId: String): SmoothieRepository {
-        return SmoothieRepository(appId)
+    @Reusable
+    fun provideRetrofit(
+        @AppID appId: String,
+    ): Retrofit {
+        return Retrofit(
+            appId = appId,
+        )
     }
 }

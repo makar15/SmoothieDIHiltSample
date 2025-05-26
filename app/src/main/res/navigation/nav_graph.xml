@@ -3,26 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/NotesFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.regexptest.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/NotesFragment"
+        android:name="com.example.regexptest.smoothie.presentation.SmoothieFragment"
+        android:label="@string/notes_fragment_label"
+        tools:layout="@layout/fragment_smoothie">
+
+        <argument
+            android:name="extra_app_unique_id"
+            app:argType="string"
+            android:defaultValue="Notes" />
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_NotesFragment_to_CalendarFragment"
+            app:destination="@id/CalendarFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.regexptest.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/CalendarFragment"
+        android:name="com.example.regexptest.smoothie.presentation.SmoothieFragment"
+        android:label="@string/calendar_fragment_label"
+        tools:layout="@layout/fragment_smoothie">
+
+        <argument
+            android:name="extra_app_unique_id"
+            app:argType="string"
+            android:defaultValue="Calendar" />
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_CalendarFragment_to_NotesFragment"
+            app:destination="@id/NotesFragment" />
     </fragment>
 </navigation>

@@ -8,7 +8,7 @@ class SmoothieInteractor(
     private val repository: SmoothieRepository,
 ) {
     fun doSomething() {
-        Log.d("MYTAG", "Interactor execute with $appId $repository")
+        Log.d("MYTAG", "AppId = $appId ; $this \n")
         repository.getSomething()
     }
 }
