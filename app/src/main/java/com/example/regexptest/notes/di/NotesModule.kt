@@ -1,12 +1,13 @@
 package com.example.regexptest.notes.di
 
 import com.example.regexptest.notes.data.RoomLocalSource
-import com.example.regexptest.smoothie.di.singleton.CustomSingletonEntryPoint
+import com.example.regexptest.smoothie.di.singleton.SmoothieSingletonEntryPoint
 import com.example.regexptest.smoothie.di.singleton.SmoothieSingletonComponentBuilder
 import com.example.regexptest.smoothie.data.LocalSource
+import com.example.regexptest.smoothie.di.singleton.SmoothieSingletonComponent
+import com.example.regexptest.smoothie.domain.AuthInteractor
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
@@ -19,17 +20,18 @@ class NotesModule {
     @Provides
     @Singleton
     @NotesApp
-    fun provideCustomSingletonEntryPoint(
+    fun provideSmoothieSingletonEntryPoint(
         @NotesApp appId: String,
         @NotesApp localSource: LocalSource,
+        @NotesApp authInteractor: AuthInteractor,
         singletonEntryPointBuilder: SmoothieSingletonComponentBuilder,
-    ): CustomSingletonEntryPoint {
-        return EntryPoints.get(
-            singletonEntryPointBuilder
-                .appId(appId)
-                .localSource(localSource)
-                .build(),
-            CustomSingletonEntryPoint::class.java
+    ): SmoothieSingletonEntryPoint {
+        return SmoothieSingletonComponent.getOrCreateComponent(
+            appId = appId,
+            appName = "N",
+            localSource = localSource,
+            authInteractor = authInteractor,
+            builder = singletonEntryPointBuilder,
         )
     }
 

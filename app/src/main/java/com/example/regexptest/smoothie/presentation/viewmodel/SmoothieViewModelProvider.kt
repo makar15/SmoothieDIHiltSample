@@ -2,32 +2,23 @@ package com.example.regexptest.smoothie.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.regexptest.smoothie.di.singleton.CustomSingletonEntryPoint
-import com.example.regexptest.smoothie.di.viewmodel.SmoothieViewModelComponentBuilder
-import com.example.regexptest.smoothie.di.viewmodel.SmoothieViewModelEntryPoint
+import com.example.regexptest.smoothie.di.singleton.SmoothieSingletonEntryPoint
 import dagger.assisted.AssistedFactory
-import dagger.hilt.EntryPoints
 
 @AssistedFactory
 interface SmoothieViewModelFactory {
-    fun create(viewModelEntryPoint: SmoothieViewModelEntryPoint): SmoothieViewModel
+    fun create(singletonDependencies: SmoothieSingletonEntryPoint): SmoothieViewModel
 }
 
 object SmoothieViewModelProvider {
 
     fun provideFactory(
         assistedFactory: SmoothieViewModelFactory,
-        viewModelComponentBuilder: SmoothieViewModelComponentBuilder,
-        singletonEntryPoint: CustomSingletonEntryPoint,
+        singletonDependencies: SmoothieSingletonEntryPoint,
     ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            val viewModelEntryPoint = EntryPoints.get(
-                viewModelComponentBuilder.singletonDependencies(singletonEntryPoint).build(),
-                SmoothieViewModelEntryPoint::class.java
-            )
-            return assistedFactory.create(viewModelEntryPoint) as T
+            return assistedFactory.create(singletonDependencies) as T
         }
     }
 }

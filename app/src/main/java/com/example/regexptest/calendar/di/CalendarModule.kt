@@ -1,12 +1,13 @@
 package com.example.regexptest.calendar.di
 
 import com.example.regexptest.calendar.data.SharedPrefLocalSource
-import com.example.regexptest.smoothie.di.singleton.CustomSingletonEntryPoint
+import com.example.regexptest.smoothie.di.singleton.SmoothieSingletonEntryPoint
 import com.example.regexptest.smoothie.di.singleton.SmoothieSingletonComponentBuilder
 import com.example.regexptest.smoothie.data.LocalSource
+import com.example.regexptest.smoothie.di.singleton.SmoothieSingletonComponent
+import com.example.regexptest.smoothie.domain.AuthInteractor
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
@@ -19,17 +20,18 @@ class CalendarModule {
     @Provides
     @Singleton
     @CalendarApp
-    fun provideCustomSingletonEntryPoint(
+    fun provideSmoothieSingletonEntryPoint(
         @CalendarApp appId: String,
         @CalendarApp localSource: LocalSource,
+        @CalendarApp authInteractor: AuthInteractor,
         singletonEntryPointBuilder: SmoothieSingletonComponentBuilder,
-    ): CustomSingletonEntryPoint {
-        return EntryPoints.get(
-            singletonEntryPointBuilder
-                .appId(appId)
-                .localSource(localSource)
-                .build(),
-            CustomSingletonEntryPoint::class.java
+    ): SmoothieSingletonEntryPoint {
+        return SmoothieSingletonComponent.getOrCreateComponent(
+            appId = appId,
+            appName = "C",
+            localSource = localSource,
+            authInteractor = authInteractor,
+            builder = singletonEntryPointBuilder,
         )
     }
 

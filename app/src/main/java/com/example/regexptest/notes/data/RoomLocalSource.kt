@@ -6,7 +6,6 @@ import com.example.regexptest.smoothie.data.LocalSource
 class RoomLocalSource(private val appId: String) : LocalSource {
 
     override fun doAction() {
-        Log.d("MYTAG", "AppId = $appId ; $this \n\n" +
-            " ")
+        Log.d("MYTAG", "AppId = $appId ; $this \n")
     }
 }

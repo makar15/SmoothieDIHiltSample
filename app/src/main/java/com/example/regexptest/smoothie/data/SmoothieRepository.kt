@@ -1,18 +1,18 @@
 package com.example.regexptest.smoothie.data
 
 import android.util.Log
-import com.example.regexptest.smoothie.di.singleton.SmoothieSingleton
-import javax.inject.Inject
 
-@SmoothieSingleton
-class SmoothieRepository @Inject constructor(
+class SmoothieRepository(
     private val appId: String,
+    private val appName: String,
     private val localSource: LocalSource,
     private val remoteSource: RemoteSource,
+    private val retrofit: Retrofit,
 ) {
-    fun getSomething(){
-        Log.d("MYTAG", "AppId = $appId ; $this \n")
+    fun getSomething() {
+        Log.d("MYTAG", "AppId = $appId ; AppName = $appName ; $this \n")
         remoteSource.doAction()
         localSource.doAction()
+        retrofit.getSomething()
     }
 }
